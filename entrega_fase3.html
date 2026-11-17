@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tech Challenge Fase 3 — Entrega</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #fff;
+      color: #1a1f36;
+      line-height: 1.75;
+      font-size: 15px;
+    }
+
+    /* ── CAPA ── */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 40px;
+      border-bottom: 3px solid #e8ecf2;
+      page-break-after: always;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #1a1f36;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 20px;
+      margin-bottom: 36px;
+    }
+
+    .cover h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: #1a1f36;
+      line-height: 1.2;
+      max-width: 700px;
+      margin-bottom: 12px;
+    }
+
+    .cover .subtitle {
+      font-size: 1rem;
+      color: #6b7280;
+      margin-bottom: 48px;
+    }
+
+    .cover .divider {
+      width: 48px;
+      height: 4px;
+      background: #e53935;
+      border-radius: 2px;
+      margin: 0 auto 48px;
+    }
+
+    .repo-box {
+      border: 1.5px solid #d1d9e6;
+      border-radius: 12px;
+      padding: 20px 32px;
+      margin-bottom: 36px;
+      max-width: 480px;
+    }
+
+    .repo-box .label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 6px;
+    }
+
+    .repo-box a {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a56db;
+      text-decoration: none;
+    }
+
+    .cover-meta {
+      font-size: 0.88rem;
+      color: #6b7280;
+      line-height: 2;
+    }
+
+    .cover-meta strong { color: #1a1f36; }
+
+    /* ── CONTEÚDO ── */
+    .content {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 60px 40px 80px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #1a1f36;
+      margin: 56px 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 2.5px solid #e53935;
+    }
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a1f36;
+      margin: 28px 0 10px;
+    }
+
+    p { margin-bottom: 14px; color: #374151; }
+
+    ul, ol { margin: 0 0 14px 24px; color: #374151; }
+    li { margin-bottom: 6px; }
+
+    strong { color: #1a1f36; }
+
+    /* ── TABELAS ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0 28px;
+      font-size: 0.875rem;
+    }
+
+    thead th {
+      background: #1a1f36;
+      color: #fff;
+      padding: 11px 14px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    tbody tr:nth-child(even) { background: #f8fafc; }
+
+    tbody td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #e8ecf2;
+      vertical-align: top;
+    }
+
+    code {
+      font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.82em;
+    }
+
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 18px 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      margin: 16px 0 24px;
+      font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+    }
+
+    /* ── CAIXAS ── */
+    .box {
+      border-left: 4px solid #1a56db;
+      background: #eff6ff;
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 20px 0 24px;
+      font-size: 0.9rem;
+      color: #1e3a5f;
+    }
+
+    .box.green {
+      border-color: #16a34a;
+      background: #f0fdf4;
+      color: #14532d;
+    }
+
+    .box.amber {
+      border-color: #d97706;
+      background: #fffbeb;
+      color: #78350f;
+    }
+
+    /* ── FLUXO ── */
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      margin: 20px 0 28px;
+    }
+
+    .flow-node {
+      background: #1a1f36;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .flow-arrow {
+      color: #9ca3af;
+      font-size: 1.2rem;
+      padding: 0 8px;
+      font-weight: 300;
+    }
+
+    /* ── LINKS FINAIS ── */
+    .link-box {
+      border: 1.5px solid #d1d9e6;
+      border-radius: 12px;
+      padding: 20px 28px;
+      margin-bottom: 20px;
+    }
+
+    .link-box .label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 6px;
+    }
+
+    .link-box a {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1a56db;
+      text-decoration: none;
+    }
+
+    /* ── RODAPÉ ── */
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      padding: 32px 0 48px;
+      border-top: 1px solid #e8ecf2;
+      margin-top: 60px;
+    }
+
+    @media print {
+      .cover { page-break-after: always; }
+      h2 { page-break-before: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════ CAPA ══════════════════ -->
+<div class="cover">
+  <div class="badge">POSTECH — FIAP</div>
+  <h1>Assistente Médico Virtual com LLM Fine-tuning e LangChain</h1>
+  <p class="subtitle">Tech Challenge — Fase 3</p>
+  <div class="divider"></div>
+  <div class="repo-box">
+    <div class="label">Repositório Git</div>
+    <a href="https://github.com/gabriel-lgomes/tech-challenge">github.com/gabriel-lgomes/tech-challenge</a>
+  </div>
+  <div class="cover-meta">
+    <strong>Autor:</strong> gabriel-lgomes<br>
+    <strong>Disciplinas:</strong> IA, Machine Learning e LLMs<br>
+    <strong>Linguagem:</strong> Python 3 · Jupyter Notebook<br>
+    <strong>Fine-tuning:</strong> Phi-3-mini-4k-instruct · QLoRA (Unsloth)<br>
+    <strong>Frameworks:</strong> LangChain · LangGraph · ChromaDB · SQLite
+  </div>
+</div>
+
+<!-- ══════════════════ CONTEÚDO ══════════════════ -->
+<div class="content">
+
+  <!-- 1. Contexto -->
+  <h2>1. Contexto e Objetivo</h2>
+  <p>
+    Esta entrega é uma <strong>evolução direta das Fases 1 e 2</strong>, que construíram um sistema de apoio ao diagnóstico de câncer de mama com Random Forest, Algoritmo Genético e interpretabilidade via LLM. Na Fase 3, o projeto avança para um nível superior de personalização:
+  </p>
+  <ul>
+    <li><strong>Fine-tuning de LLM</strong> com dados médicos internos sintéticos (protocolos, laudos e FAQ) — adaptando o modelo ao vocabulário e condutas clínicas do hospital</li>
+    <li><strong>Assistente médico com LangChain</strong> — pipeline RAG que combina a LLM customizada com recuperação semântica de protocolos e consulta a prontuários estruturados</li>
+    <li><strong>Fluxos automatizados com LangGraph</strong> — orquestração de etapas clínicas (verificar exames, sugerir tratamento, emitir alertas) de forma segura e rastreável</li>
+  </ul>
+  <div class="box">
+    O mesmo repositório das fases anteriores foi utilizado
+    (<a href="https://github.com/gabriel-lgomes/tech-challenge">github.com/gabriel-lgomes/tech-challenge</a>), com a adição da pasta <code>fase3/</code> contendo todo o código desta entrega.
+  </div>
+
+  <!-- 2. Fine-tuning -->
+  <h2>2. Fine-tuning de LLM com QLoRA</h2>
+  <p>
+    Notebook: <code>fase3/notebooks/01_fine_tuning_colab.ipynb</code> · Biblioteca: <strong>Unsloth + TRL</strong>
+  </p>
+
+  <h3>Modelo base e estratégia de fine-tuning</h3>
+  <p>
+    O fine-tuning completo de modelos como LLaMA 7B+ exige 40–80 GB de VRAM — inviável sem hardware dedicado. A solução adotada foi <strong>QLoRA (Quantized Low-Rank Adaptation)</strong>, que congela os pesos originais do modelo e treina apenas adaptadores de baixo rank em precisão 4-bit, reduzindo o consumo de memória para ~6–8 GB (compatível com GPU T4 do Google Colab gratuito).
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Componente</th><th>Configuração</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Modelo base</td><td><code>unsloth/Phi-3-mini-4k-instruct</code> (3.8B parâmetros)</td></tr>
+      <tr><td>Quantização</td><td>4-bit NF4 (via BitsAndBytes)</td></tr>
+      <tr><td>Rank LoRA (r)</td><td>16</td></tr>
+      <tr><td>Alpha LoRA</td><td>32</td></tr>
+      <tr><td>Módulos alvo</td><td>q_proj, k_proj, v_proj, o_proj, gate/up/down_proj</td></tr>
+      <tr><td>Biblioteca</td><td>Unsloth (2× mais rápido que HuggingFace padrão)</td></tr>
+      <tr><td>Trainer</td><td>SFTTrainer (TRL) — Supervised Fine-Tuning</td></tr>
+      <tr><td>Otimizador</td><td>AdamW 8-bit · lr=2e-4 · scheduler cosine</td></tr>
+      <tr><td>Ambiente</td><td>Google Colab (GPU T4 gratuita) ou local ≥8 GB VRAM</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Dataset de fine-tuning</h3>
+  <p>
+    Por não haver dados reais disponíveis, foi criado um <strong>gerador de dados sintéticos</strong> (<code>src/data/synthetic_generator.py</code>) que produz dados realistas no formato instruction-tuning (estilo Alpaca), cobrindo três categorias:
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Categoria</th><th>Exemplos</th><th>Amostras</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Protocolos internos</td><td>IAM, sepse, controle glicêmico, TVP, antimicrobianos</td><td>5</td></tr>
+      <tr><td>FAQ médica</td><td>Doses, indicações, critérios de transferência para UTI</td><td>6</td></tr>
+      <tr><td>Laudos sintéticos</td><td>ECG (arritmias, BRE, isquemia) e Raio-X de tórax</td><td>50+</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Preprocessing e anonimização</h3>
+  <p>
+    O módulo <code>src/data/preprocessing.py</code> aplica:
+  </p>
+  <ul>
+    <li><strong>Anonimização por regex</strong>: CPF, datas de nascimento, nomes próprios, CEP e telefones são substituídos por tokens (<code>[CPF]</code>, <code>[NOME]</code>, etc.)</li>
+    <li><strong>Formatação Alpaca</strong>: cada amostra é estruturada com <em>Sistema / Instrução / Entrada / Resposta</em>, incluindo o system prompt de segurança</li>
+    <li><strong>Split treino/validação</strong>: 90%/10% com seed fixo para reprodutibilidade</li>
+  </ul>
+
+  <pre>### Sistema:
+Você é um assistente médico hospitalar especializado. Responda sempre com base
+nos protocolos internos. Nunca prescreva medicamentos diretamente — indique
+avaliação médica quando necessário. Cite a fonte ao final de cada resposta.
+
+### Instrução:
+Responda à pergunta clínica.
+
+### Entrada:
+Qual é a dose de AAS para prevenção secundária cardiovascular?
+
+### Resposta:
+A dose recomendada é de 75 a 100 mg/dia, por via oral, preferencialmente com
+refeições. Fonte: Protocolo Interno — Cardiologia, revisão 2024.</pre>
+
+  <!-- 3. LangChain -->
+  <h2>3. Assistente Médico com LangChain</h2>
+  <p>
+    Notebook/módulo: <code>fase3/src/assistant/chains.py</code> · <code>retriever.py</code> · <code>database.py</code>
+  </p>
+
+  <h3>Arquitetura RAG (Retrieval-Augmented Generation)</h3>
+  <p>
+    O assistente combina três fontes de informação antes de acionar a LLM:
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Camada</th><th>Tecnologia</th><th>Responsabilidade</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Embeddings</td><td>paraphrase-multilingual-MiniLM-L12-v2</td><td>Representação vetorial dos protocolos e FAQ</td></tr>
+      <tr><td>Vector store</td><td>ChromaDB (persistente em disco)</td><td>Recuperação semântica por similaridade coseno</td></tr>
+      <tr><td>Banco estruturado</td><td>SQLite</td><td>Prontuários, medicações, exames pendentes e alertas</td></tr>
+      <tr><td>LLM</td><td>Phi-3-mini fine-tunado <em>ou</em> LLaMA 3.1 via Groq</td><td>Geração da resposta contextualizada</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box">
+    <strong>Fallback automático:</strong> se o modelo fine-tunado local não for encontrado em <code>models/fine_tuned/</code>, o sistema usa automaticamente o <strong>LLaMA 3.1 8B via Groq API</strong> (inferência em nuvem, chave gratuita), garantindo funcionamento sem GPU.
+  </div>
+
+  <h3>Pipeline LangChain — 4 etapas sequenciais</h3>
+  <div class="flow">
+    <div class="flow-node">1. Recuperar contexto<br><small style="font-weight:400">ChromaDB (top-3)</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">2. Adicionar paciente<br><small style="font-weight:400">SQLite lookup</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">3. Gerar resposta<br><small style="font-weight:400">LLM fine-tunada</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">4. Aplicar segurança<br><small style="font-weight:400">Guardrails + Log</small></div>
+  </div>
+
+  <!-- 4. LangGraph -->
+  <h2>4. Fluxo Automatizado com LangGraph</h2>
+  <p>
+    Módulo: <code>fase3/src/graph/medical_graph.py</code>
+  </p>
+  <p>
+    O LangGraph orquestra um fluxo de decisão clínica completo a partir do ID de um paciente, coordenando 5 nós independentes:
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Nó</th><th>Ação</th><th>Saída</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>receber_paciente</code></td><td>Carrega dados do SQLite</td><td>Dados completos do prontuário</td></tr>
+      <tr><td><code>verificar_exames</code></td><td>Lista exames pendentes e consulta a LLM sobre priorização</td><td>Recomendação de prioridade</td></tr>
+      <tr><td><code>sugerir_tratamento</code></td><td>Consulta a LLM com diagnóstico + medicações em uso</td><td>Sugestão de conduta baseada em protocolo</td></tr>
+      <tr><td><code>emitir_alertas</code></td><td>Detecta situações críticas e grava novos alertas no banco</td><td>Lista de alertas emitidos</td></tr>
+      <tr><td><code>finalizar</code></td><td>Monta resumo estruturado do fluxo</td><td>Relatório completo do atendimento</td></tr>
+    </tbody>
+  </table>
+
+  <div class="flow">
+    <div class="flow-node">receber_paciente</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">verificar_exames</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">sugerir_tratamento</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">emitir_alertas</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node">finalizar</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="background:#374151">END</div>
+  </div>
+
+  <div class="box amber">
+    <strong>Validação obrigatória:</strong> o resumo gerado pelo fluxo inclui explicitamente o aviso <em>"Todas as sugestões requerem validação do médico responsável"</em> — o sistema nunca prescreve diretamente.
+  </div>
+
+  <!-- 5. Segurança -->
+  <h2>5. Segurança e Validação</h2>
+  <p>
+    Módulos: <code>fase3/src/security/guardrails.py</code> · <code>audit_logger.py</code>
+  </p>
+
+  <h3>Guardrails — limites de atuação</h3>
+  <p>
+    Toda pergunta passa por verificação antes de chegar à LLM:
+  </p>
+
+  <table>
+    <thead>
+      <tr><th>Tipo de verificação</th><th>Mecanismo</th><th>Exemplo bloqueado</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Prescrição direta</td><td>Regex em <code>check_input()</code></td><td>"Prescreva Metformina para este paciente"</td></tr>
+      <tr><td>Diagnóstico definitivo</td><td>Regex em <code>check_input()</code></td><td>"Confirme o diagnóstico definitivo de..."</td></tr>
+      <tr><td>Termos de alto risco na resposta</td><td><code>add_safety_flags()</code></td><td>Respostas que contêm "prescrever", "diagnóstico final"</td></tr>
+      <tr><td>Disclaimer automático</td><td><code>apply_disclaimer()</code></td><td>Anexado a 100% das respostas</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Logging estruturado (JSONL)</h3>
+  <p>
+    Cada interação é registrada em <code>logs/assistant.jsonl</code> com rastreabilidade completa:
+  </p>
+
+  <pre>{
+  "entry_id": "a3f1b2c4",
+  "timestamp": "2026-11-17T14:32:01Z",
+  "session_id": "d9e2f1a0",
+  "node": "assistant",
+  "patient_id": "A1B2C3D4",
+  "question": "Quais exames devem ser priorizados?",
+  "answer": "Com base no protocolo...",
+  "sources": ["Protocolo de Controle Glicêmico Hospitalar"],
+  "safety_flags": [],
+  "requires_human_review": false
+}</pre>
+
+  <h3>Explainability — citação de fontes</h3>
+  <p>
+    Toda resposta inclui a seção <strong>"Fontes consultadas"</strong> com os documentos recuperados pelo RAG (título do protocolo ou pergunta do FAQ), permitindo auditoria e validação pelo médico.
+  </p>
+
+  <!-- 6. Desafios -->
+  <h2>6. Desafios Enfrentados e Soluções Implementadas</h2>
+
+  <table>
+    <thead>
+      <tr><th>Desafio</th><th>Impacto</th><th>Solução implementada</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Fine-tuning exige GPU dedicada</strong><br>Modelos 7B+ requerem 40–80 GB VRAM</td>
+        <td>Inviável em máquinas locais sem GPU de alto desempenho</td>
+        <td>QLoRA + Unsloth com modelo 3.8B — roda em T4 (Colab gratuito, 15 GB VRAM)</td>
+      </tr>
+      <tr>
+        <td><strong>Ausência de dados reais</strong><br>Dados médicos são sensíveis e regulados</td>
+        <td>Impossibilidade de usar dados hospitalares reais</td>
+        <td>Gerador de dados sintéticos com protocolos, laudos e FAQ clinicamente plausíveis + anonimização por regex</td>
+      </tr>
+      <tr>
+        <td><strong>LLM sem GPU no ambiente de produção</strong><br>Modelo fine-tunado exige hardware para inferência</td>
+        <td>Sistema não funciona em máquinas sem GPU</td>
+        <td>Fallback automático para Groq API (LLaMA 3.1 8B, chave gratuita) — sem degradação de funcionalidade</td>
+      </tr>
+      <tr>
+        <td><strong>Respostas da LLM sem rastreabilidade</strong><br>LLMs podem gerar informações sem base documental</td>
+        <td>Risco clínico de condutas sem protocolo validado</td>
+        <td>RAG com ChromaDB — a LLM só responde com base nos documentos recuperados, que são citados na resposta</td>
+      </tr>
+      <tr>
+        <td><strong>Prescrições e diagnósticos definitivos</strong><br>LLMs podem afirmar certeza médica indevida</td>
+        <td>Risco de uso inadequado pelo pessoal clínico</td>
+        <td>Guardrails com bloqueio por regex + disclaimer obrigatório em 100% das respostas + logging de flags de risco</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 7. Arquitetura -->
+  <h2>7. Arquitetura Completa da Solução</h2>
+
+  <table>
+    <thead>
+      <tr><th>Camada</th><th>Tecnologia</th><th>Responsabilidade</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Dados sintéticos</td><td>Python + Faker</td><td>Protocolos, laudos, FAQ e prontuários gerados</td></tr>
+      <tr><td>Preprocessing</td><td>HuggingFace Datasets</td><td>Anonimização, formatação Alpaca, split treino/val</td></tr>
+      <tr><td>Fine-tuning</td><td>Unsloth + QLoRA + TRL</td><td>Adaptação do Phi-3-mini ao domínio médico</td></tr>
+      <tr><td>Vector store</td><td>ChromaDB + Sentence Transformers</td><td>Indexação e recuperação semântica de protocolos</td></tr>
+      <tr><td>Banco estruturado</td><td>SQLite</td><td>Prontuários, medicações, exames pendentes</td></tr>
+      <tr><td>Orquestração LLM</td><td>LangChain</td><td>Pipeline RAG: recuperação → contexto → geração</td></tr>
+      <tr><td>Fluxo clínico</td><td>LangGraph</td><td>Grafo de decisão: 5 nós encadeados por StateGraph</td></tr>
+      <tr><td>Segurança</td><td>Python (regex + JSON)</td><td>Guardrails, logging JSONL, disclaimer, citação de fontes</td></tr>
+      <tr><td>Inferência (nuvem)</td><td>Groq API — LLaMA 3.1 8B</td><td>Fallback sem GPU, chave gratuita</td></tr>
+      <tr><td>CLI</td><td>argparse</td><td>Interface unificada: setup / ask / flow / finetune</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Fluxo completo:</strong> Dados sintéticos → preprocessing → fine-tuning QLoRA (Colab) → ChromaDB index → LangChain RAG + SQLite → LangGraph flow → resposta com fontes + disclaimer → log JSONL</p>
+
+  <!-- 8. Notebooks -->
+  <h2>8. Arquivos desta Fase</h2>
+
+  <table>
+    <thead>
+      <tr><th>Arquivo</th><th>Conteúdo</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>fase3/notebooks/01_fine_tuning_colab.ipynb</code></td>
+        <td>Fine-tuning completo no Google Colab: instalação → dados → QLoRA → treinamento → avaliação qualitativa</td>
+      </tr>
+      <tr>
+        <td><code>fase3/src/data/synthetic_generator.py</code></td>
+        <td>Gerador de protocolos, laudos (ECG, Raio-X), FAQ e prontuários sintéticos anonimizados</td>
+      </tr>
+      <tr>
+        <td><code>fase3/src/data/preprocessing.py</code></td>
+        <td>Anonimização PII, formatação Alpaca e split treino/validação</td>
+      </tr>
+      <tr>
+        <td><code>fase3/src/fine_tuning/trainer.py</code></td>
+        <td>Pipeline QLoRA com Unsloth (ou HF fallback) e avaliação qualitativa pós-treino</td>
+      </tr>
+      <tr>
+        <td><code>fase3/src/assistant/chains.py</code></td>
+        <td>Pipeline LangChain: RAG + contexto do paciente + LLM + guardrails + logging</td>
+      </tr>
+      <tr>
+        <td><code>fase3/src/assistant/retriever.py</code></td>
+        <td>Indexação e recuperação semântica com ChromaDB + Sentence Transformers</td>
+      </tr>
+      <tr>
+        <td><code>fase3/src/assistant/database.py</code></td>
+        <td>Banco SQLite com prontuários, medicações, exames e alertas</td>
+      </tr>
+      <tr>
+        <td><code>fase3/src/graph/medical_graph.py</code></td>
+        <td>Grafo LangGraph com 5 nós: receber paciente → exames → tratamento → alertas → finalizar</td>
+      </tr>
+      <tr>
+        <td><code>fase3/src/security/guardrails.py</code></td>
+        <td>Bloqueio de prescrições diretas, detecção de termos de risco, disclaimer automático</td>
+      </tr>
+      <tr>
+        <td><code>fase3/src/security/audit_logger.py</code></td>
+        <td>Logging estruturado JSONL com rastreabilidade completa por sessão</td>
+      </tr>
+      <tr>
+        <td><code>fase3/main.py</code></td>
+        <td>CLI: <code>setup</code> / <code>ask</code> / <code>flow &lt;id&gt;</code> / <code>finetune</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 9. Links -->
+  <h2>9. Links</h2>
+
+  <h3>Repositório Git</h3>
+  <div class="link-box">
+    <div class="label">Repositório Público no GitHub</div>
+    <a href="https://github.com/gabriel-lgomes/tech-challenge">https://github.com/gabriel-lgomes/tech-challenge</a>
+  </div>
+
+  <h3>Vídeo de Demonstração</h3>
+  <div class="link-box">
+    <div class="label">YouTube — Demonstração do Projeto</div>
+    <a href="#">Link será adicionado após gravação do vídeo</a>
+  </div>
+
+  <div class="box green" style="margin-top: 32px;">
+    <strong>Vídeo (até 15 min) deve demonstrar:</strong> setup do ambiente → geração dos dados → (opcional) treinamento no Colab → execução do assistente interativo (<code>python main.py ask</code>) → execução do fluxo LangGraph (<code>python main.py flow &lt;ID&gt;</code>) → logs de auditoria e fontes citadas.
+  </div>
+
+</div>
+
+<footer>
+  Tech Challenge Fase 3 · PosTech — FIAP · gabriel-lgomes · 2026
+</footer>
+
+</body>
+</html>
